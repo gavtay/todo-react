@@ -1,0 +1,10 @@
+body {
+  height: 100%;
+  width: auto;
+  margin: 0;
+  color: white;
+  background-color: rgb(26, 26, 26);
+  display: flex;
+  justify-content: center;
+}
+

@@ -1,0 +1,36 @@
+.task-container {
+    height: 50px;
+    width: 100%;
+    margin-bottom: 3px;
+    background-color: rgb(54, 54, 54);
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text {
+    width: 100%;
+    margin-left: 5px;
+    font-size: medium;
+    font-weight: 500;
+}
+.check-btn {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    background-color: rgb(26, 26, 26);
+    border: 2px solid rgb(0, 255, 0);
+    border-radius: 4px;
+    cursor: pointer;
+}
+.del-btn {
+    height: 40px;
+    width: 40px;
+    margin-right: 5px;
+    background-color: rgb(26, 26, 26);
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
