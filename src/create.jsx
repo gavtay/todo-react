@@ -22,3 +22,5 @@ export default function Createtodo() {
     )
 }
 
+// Pre create x amount of tasks, set the visibility to invisible with styles, use state to make visible
+

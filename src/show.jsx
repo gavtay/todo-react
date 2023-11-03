@@ -1,5 +1,4 @@
 import Task from './task.jsx'
-import Createtodo from './create.jsx'
 
 export default function Showtodo() {
     
@@ -10,4 +9,3 @@ export default function Showtodo() {
         </div>
     )
 }
-
