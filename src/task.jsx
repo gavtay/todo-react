@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faX } from '@fortawesome/free-solid-svg-icons'
-// import { useState } from 'react'
-
-
 import './task.css'
 
 const checkBtn = <FontAwesomeIcon icon={faCheck} style={{color: "#00ff00"}} />
