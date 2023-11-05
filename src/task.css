@@ -24,6 +24,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
+checkBtn {
+    height: 30px;
+}
 .del-btn {
     height: 40px;
     width: 40px;
