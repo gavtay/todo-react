@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faX } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './task.css'
 import './create.css'
 import './task.css'
@@ -9,7 +9,6 @@ import './App.css'
 
 const checkBtn = <FontAwesomeIcon id="check" icon={faCheck} style={{color: "#00ff00", pointerEvents: 'none'}} />
 const xBtn = <FontAwesomeIcon id="x" icon={faX} style={{color: "#ff0000", pointerEvents: 'none'}} />
-let completeBool = false;
 
 
 
@@ -18,11 +17,20 @@ export default function App() {
   // Creates new todo task
   function createTodo(_event) {
     setToDoList([...toDoList, text]);
+    setCompleted([...completed, false]);
   }
 
   // saves text in input, stores the value in text state
   function handleChange(event) {
     setText(event.target.value);
+  }
+
+  // switch complete state value
+  function changeCompleted(index) {
+    let newArray = completed.slice();
+    newArray[index] = !newArray[index];
+    
+    setCompleted(newArray);
   }
   
   // completes task and checkmarks the task for visible completion
@@ -34,11 +42,26 @@ export default function App() {
     let compIndex = toDoList.indexOf(textContent);
     let newList = toDoList.slice();
     
-    // setCompleted(isComplete => !isComplete);
-    completeBool = !completeBool;
+    changeCompleted(compIndex);
 
-    if (completeBool) {
-    // if (completed) {
+    // Figure out a way to run the change after the complete state runs 
+
+    // useEffect(() => {
+    //   if (completed[compIndex] === true) {
+    //     newList[compIndex] = '\u2713 --- ' + textContent + ' --- \u2713';
+    //     setToDoList(newList);
+    //     return;
+    //   }
+    //   else {
+    //     let newEle = newList[compIndex];
+    //     newEle = newEle.slice(6, -6);
+    //     newList[compIndex] = newEle;
+    //     setToDoList(newList);
+    //     return;
+    //   }
+    // }, [completed]);
+
+    if (completed[compIndex] === true) {
       newList[compIndex] = '\u2713 --- ' + textContent + ' --- \u2713';
       setToDoList(newList);
       return;
@@ -54,7 +77,7 @@ export default function App() {
 
   const [text, setText] = useState('');
   const [toDoList, setToDoList] = useState([]);
-  // const [completed, setCompleted] = useState(false);
+  const [completed, setCompleted] = useState([]);
 
   return (
     <>
