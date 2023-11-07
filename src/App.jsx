@@ -36,6 +36,18 @@ export default function App() {
     setToDoList(copyArray); 
   }
 
+  function deleteTask(index, toDoArray) {
+    let newToDoArray = toDoArray.slice();
+    let taskToDelete = toDoArray[index];
+
+    let newestArray = newToDoArray.filter((toDo) => {
+      console.log(toDo);
+      return toDo !== taskToDelete;       
+    });
+
+    setToDoList(newestArray);
+  }
+
   let getObjectName = (obj) => {
     return obj.complete ? true: false;
   }
@@ -56,7 +68,7 @@ export default function App() {
             <p id="char-count">{textCount} / 120</p>
           </div>
           {
-            toDoList.map((inp, ind) => { // first argument is value, second argument is index, third arg is entire array
+            toDoList.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
 
               return (
                 <div className="task-container"> 
@@ -68,7 +80,7 @@ export default function App() {
                   <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
                     {checkBtn}
                   </button>
-                  <button className="del-btn" id="second" onClick={ function() { console.log('deleted task') } }>{xBtn}</button>
+                  <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
                 </div>        
               );
             })
