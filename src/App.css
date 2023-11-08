@@ -23,7 +23,7 @@
   border: 2px solid rgb(0, 0, 0);
   border-radius: 4px;
 }
-.btn {
+#submit-btn {
   height: 30px;
   width: 60px;
   margin: 10px 0px 10px 0px;
@@ -32,6 +32,7 @@
   border: 1px solid rgb(130, 130, 255);
   border-radius: 4px;
   cursor: pointer;
+  /* visibility: hidden; */
 }
 #submit-p-container {
   display: flex;
@@ -84,6 +85,25 @@ checkBtn {
   height: 40px;
   width: 40px;
   margin-right: 5px;
+  background-color: rgb(26, 26, 26);
+  border: 2px solid rgb(255, 0, 0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* completed.css */
+#completed-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#amt-completed {
+  color: rgb(0, 255, 0);
+}
+#del-completed {
+  height: 35px;
+  color: rgb(255, 0, 0);
   background-color: rgb(26, 26, 26);
   border: 2px solid rgb(255, 0, 0);
   border-radius: 4px;

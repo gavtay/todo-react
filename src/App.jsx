@@ -19,6 +19,7 @@ export default function App() {
     }
     
     setToDoList([...toDoList, todo]);
+    setText('');
   }
 
   // saves text in input, stores the value in text state
@@ -36,18 +37,31 @@ export default function App() {
     setToDoList(copyArray); 
   }
 
+  // delete task
   function deleteTask(index, toDoArray) {
     let newToDoArray = toDoArray.slice();
     let taskToDelete = toDoArray[index];
 
-    let newestArray = newToDoArray.filter((toDo) => {
-      console.log(toDo);
+    newToDoArray = newToDoArray.filter((toDo) => {
       return toDo !== taskToDelete;       
     });
 
-    setToDoList(newestArray);
+    setToDoList(newToDoArray);
   }
 
+  // delete all completed tasks
+  function deleteCompletedTasks() {
+    console.log('Deleted completed tasks');
+    let newArray = toDoList.slice();
+
+    newArray = newArray.filter((toDo) => {
+      return toDo.complete !== true;
+    })
+
+    setToDoList(newArray);
+  }
+
+  // Show # of completed todos
   let getObjectName = (obj) => {
     return obj.complete ? true: false;
   }
@@ -64,7 +78,7 @@ export default function App() {
           <h4 className="header">Add Todo</h4>
           <input className="input" type="text" id="newInput" placeholder="Add New Todo" maxLength='120' value={text} onChange={handleChange}/>
           <div id="submit-p-container">
-            <button className="btn" onClick={createTodo}>Submit</button>
+            <button id="submit-btn" onClick={createTodo}>Submit</button>
             <p id="char-count">{textCount} / 120</p>
           </div>
           {
@@ -85,7 +99,11 @@ export default function App() {
               );
             })
           }
-          <p>Completed Todos: { numberOfCompletedTodos } </p>
+          <div id='completed-container'>
+            <p>Completed Todos: </p>
+            <p id='amt-completed'>{numberOfCompletedTodos}</p>
+            <button id='del-completed' onClick={()=>{deleteCompletedTasks()}}>Delete Completed</button>
+          </div>
         </div>
       </div>
     </>
