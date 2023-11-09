@@ -18,10 +18,16 @@
 .input {
   height: 25px;
   width: 100%;
+  margin: -10px 0px 0px 0px;
   color: white;
   background-color: rgb(54, 54, 54);
   border: 2px solid rgb(0, 0, 0);
   border-radius: 4px;
+}
+#submit-p-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #submit-btn {
   height: 30px;
@@ -34,15 +40,12 @@
   cursor: pointer;
   /* visibility: hidden; */
 }
-#submit-p-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 #char-count {
   color: rgb(130, 130, 255);
 }
-
+#filter-input {
+  margin: -10px 0px 10px 0px;
+}
 
 
 

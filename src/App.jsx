@@ -9,6 +9,7 @@ const xBtn = <FontAwesomeIcon id="x" icon={faX} style={{color: "#ff0000", pointe
 
 export default function App() {
   const [text, setText] = useState('');
+  const [filter, setFilter] = useState('');
   const [toDoList, setToDoList] = useState([]);
 
   // Creates new todo task
@@ -23,8 +24,66 @@ export default function App() {
   }
 
   // saves text in input, stores the value in text state
-  function handleChange(event) {
+  function addTaskChange(event) {
     setText(event.target.value);
+  }
+
+  // render specific tasks based on the filter
+  function filterTodoChange(event) {
+    setFilter(event.target.value);
+  }
+
+  function renderTasks() {
+    let newArray = toDoList.slice();
+    
+    if (filter === '') {
+      newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
+        return (
+          <>
+            <div className="task-container"> 
+              <p className="text" id="text-content">
+                {
+                  inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
+                }
+              </p>
+              <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
+                {checkBtn}
+              </button>
+              <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
+            </div>        
+          </>
+        );
+      })
+      return newArray;
+    }
+    else {
+      newArray = newArray.filter((todo) => {
+        let str = todo.title;
+
+        if (str.includes(filter)) {
+          return todo;
+        }
+      })
+      
+      newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
+        return (
+          <>
+            <div className="task-container"> 
+              <p className="text" id="text-content">
+                {
+                  inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
+                }
+              </p>
+              <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
+                {checkBtn}
+              </button>
+              <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
+            </div>        
+          </>
+        );
+      })
+      return newArray;
+    }
   }
 
   // completes task and checkmarks the task for visible completion
@@ -101,29 +160,37 @@ export default function App() {
         <h1>Todo List</h1>
         <div className="main">
           <h4 className="header">Add Todo</h4>
-          <input className="input" type="text" id="newInput" placeholder="Add New Todo" maxLength='120' value={text} onChange={handleChange}/>
+          <input className="input" type="text" id="newInput" placeholder="Add New Todo" maxLength='120' value={text} onChange={addTaskChange}/>
           <div id="submit-p-container">
             <p id="char-count">{textCount} / 120</p>
             {submitButtonVisibility()}
           </div>
-          {
-            toDoList.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
-
-              return (
-                <div className="task-container"> 
-                  <p className="text" id="text-content">
-                    {
-                      inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
-                    }
-                  </p>
-                  <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
-                    {checkBtn}
-                  </button>
-                  <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
-                </div>        
-              );
-            })
-          }
+          <div className='filterTasks'>
+            <h4 id='filter-input-header'>Filter Tasks by Name</h4>
+            <input className="input" type="text" id="filter-input" placeholder="Add New Todo" maxLength='120' value={filter} onChange={filterTodoChange}/>
+          </div>
+          <div className='tasks-container'>
+            <h4 id='task-header'>Tasks</h4>
+            {
+              renderTasks()
+              // toDoList.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
+                
+              //   return (
+              //     <div className="task-container"> 
+              //       <p className="text" id="text-content">
+              //         {
+              //           inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
+              //         }
+              //       </p>
+              //       <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
+              //         {checkBtn}
+              //       </button>
+              //       <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
+              //     </div>        
+              //   );
+              // })
+            }
+          </div>
           <div id='completed-container'>
             {changeCompletedTodoVisibility()}
           </div>
