@@ -33,58 +33,37 @@ export default function App() {
     setFilter(event.target.value);
   }
 
+  // Show filtered tasks
   function renderTasks() {
     let newArray = toDoList.slice();
-    
-    if (filter === '') {
-      newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
-        return (
-          <>
-            <div className="task-container"> 
-              <p className="text" id="text-content">
-                {
-                  inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
-                }
-              </p>
-              <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
-                {checkBtn}
-              </button>
-              <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
-            </div>        
-          </>
-        );
-      })
-      return newArray;
-    }
-    else {
-      newArray = newArray.filter((todo) => {
-        let str = todo.title.toLowerCase();
-        let filt = filter.toLocaleLowerCase();
+        
+    newArray = newArray.filter((todo) => {
+      let str = todo.title.toLowerCase();
+      let filt = filter.toLocaleLowerCase();
 
-        if (str.includes(filt)) {
-          return todo;
-        }
-      })
+      if (str.includes(filt)) {
+        return todo;
+      }
+    })
 
-      newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
-        return (
-          <>
-            <div className="task-container"> 
-              <p className="text" id="text-content">
-                {
-                  inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
-                }
-              </p>
-              <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
-                {checkBtn}
-              </button>
-              <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
-            </div>        
-          </>
-        );
-      })
-      return newArray;
-    }
+    newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
+      return (
+        <>
+          <div className="task-container"> 
+            <p className="text" id="text-content">
+              {
+                inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
+              }
+            </p>
+            <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
+              {checkBtn}
+            </button>
+            <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
+          </div>        
+        </>
+      );
+    })
+    return newArray;
   }
 
   // completes task and checkmarks the task for visible completion
@@ -172,25 +151,7 @@ export default function App() {
           </div>
           <div className='tasks-container'>
             <h4 id='task-header'>Tasks</h4>
-            {
-              renderTasks()
-              // toDoList.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
-                
-              //   return (
-              //     <div className="task-container"> 
-              //       <p className="text" id="text-content">
-              //         {
-              //           inp.complete ? `\u2713 ---  ${inp.title}  --- \u2713` : inp.title                    
-              //         }
-              //       </p>
-              //       <button className="check-btn" id="first" onClick={() => {completeTask(ind)}}>
-              //         {checkBtn}
-              //       </button>
-              //       <button className="del-btn" id="second" onClick={()=> {deleteTask(ind, arr)}}>{xBtn}</button>
-              //     </div>        
-              //   );
-              // })
-            }
+            {renderTasks()}
           </div>
           <div id='completed-container'>
             {changeCompletedTodoVisibility()}
