@@ -58,13 +58,14 @@ export default function App() {
     }
     else {
       newArray = newArray.filter((todo) => {
-        let str = todo.title;
+        let str = todo.title.toLowerCase();
+        let filt = filter.toLocaleLowerCase();
 
-        if (str.includes(filter)) {
+        if (str.includes(filt)) {
           return todo;
         }
       })
-      
+
       newArray = newArray.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
         return (
           <>
