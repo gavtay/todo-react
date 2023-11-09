@@ -51,7 +51,6 @@ export default function App() {
 
   // delete all completed tasks
   function deleteCompletedTasks() {
-    console.log('Deleted completed tasks');
     let newArray = toDoList.slice();
 
     newArray = newArray.filter((toDo) => {
@@ -59,6 +58,32 @@ export default function App() {
     })
 
     setToDoList(newArray);
+  }
+
+  // Toggle the view for the submit button
+  function submitButtonVisibility() {
+    if (textCount === 0) {
+      return null;
+    }
+    else {
+      return <button id="submit-btn" onClick={createTodo}>Submit</button>
+    }
+  }
+
+  // Toggle the completed todo count and delete completed buttons
+  function changeCompletedTodoVisibility() {
+    if (toDoList.length === 0) {
+      return null;
+    }
+    else {
+      return (
+        <>
+          <p>Completed Todos: </p>
+          <p id='amt-completed'>{numberOfCompletedTodos}</p>
+          <button id='del-completed' onClick={()=>{deleteCompletedTasks()}}>Delete Completed</button>
+        </>
+      )
+    }
   }
 
   // Show # of completed todos
@@ -78,8 +103,8 @@ export default function App() {
           <h4 className="header">Add Todo</h4>
           <input className="input" type="text" id="newInput" placeholder="Add New Todo" maxLength='120' value={text} onChange={handleChange}/>
           <div id="submit-p-container">
-            <button id="submit-btn" onClick={createTodo}>Submit</button>
             <p id="char-count">{textCount} / 120</p>
+            {submitButtonVisibility()}
           </div>
           {
             toDoList.map((inp, ind, arr) => { // first argument is value, second argument is index, third arg is entire array
@@ -100,9 +125,7 @@ export default function App() {
             })
           }
           <div id='completed-container'>
-            <p>Completed Todos: </p>
-            <p id='amt-completed'>{numberOfCompletedTodos}</p>
-            <button id='del-completed' onClick={()=>{deleteCompletedTasks()}}>Delete Completed</button>
+            {changeCompletedTodoVisibility()}
           </div>
         </div>
       </div>
