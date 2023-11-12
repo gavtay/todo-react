@@ -1,11 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import { faX } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import AddToDo from './AddToDo'
+import ChangeCompletedToDo from './ChangeCompletedToDo'
+import ShowToDoList from './ShowToDoList'
 import './App.css'
-
-const checkBtn = <FontAwesomeIcon id="check" icon={faCheck} style={{color: "#00ff00", pointerEvents: 'none'}} />
-const xBtn = <FontAwesomeIcon id="x" icon={faX} style={{color: "#ff0000", pointerEvents: 'none'}} />
 
 export default function App() {
   const [toDoList, setToDoList] = useState([]);
@@ -131,86 +128,3 @@ export default function App() {
     </>
   );
 }
-
-export function AddToDo({createTodo}) {
-  const [text, setText] = useState('');
-  let textCount = text.length;
-
-  // saves text in input, stores the value in text state
-  function addTaskInputChange(event) {
-    setText(event.target.value);
-  }
-
-  // Toggle the view for the submit button
-  function submitButtonVisibility() {
-    if (textCount === 0) {
-      return null;
-    }
-    else {
-      return <button id="submit-btn" onClick={()=> {
-        createTodo(text);
-      }}>Submit</button>
-    }
-  }
-
-  return (
-    <>
-      <h4 className="header">Add Todo</h4>
-      <input
-        className="input"
-        type="text"
-        id="newInput"
-        placeholder="Add New Todo"
-        maxLength='120'
-        value={text}
-        onChange={addTaskInputChange}
-      />
-      <div id="submit-p-container">
-        <p id="char-count">{textCount} / 120</p>
-        {submitButtonVisibility()}
-      </div>
-    </>
-  )
-}
-
-export function ShowToDoList({ value, index, array, completeTask, deleteTask}) {
-  return (
-    <>
-      <div className="task-container"> 
-        <p className="text" id="text-content">
-          {
-            value.complete ? `\u2713 ---  ${value.title}  --- \u2713` : value.title                    
-          }
-        </p>
-        <button className="check-btn" id="first" onClick={() => {completeTask(index)}}>
-          {checkBtn}
-        </button>
-        <button className="del-btn" id="second" onClick={()=> {deleteTask(index, array)}}>{xBtn}</button>
-      </div>        
-    </>
-  )
-}
-
-export function ChangeCompletedToDo({ toDoList, deleteCompletedTasks }) {
-  // Show # of completed todos
-  let getObjectName = (obj) => {
-    return obj.complete ? true: false;
-  }
-  const completedTodos = toDoList.filter(getObjectName);
-  const completedCount = completedTodos.length;
-
-  if (completedCount === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      <div id='completed-container'>
-        <p>Completed Todos: </p>
-        <p id='amt-completed'>{completedCount}</p>
-        <button id='del-completed' onClick={()=>{deleteCompletedTasks()}}>Delete Completed</button>
-      </div>
-    </>
-  )
-}
-
