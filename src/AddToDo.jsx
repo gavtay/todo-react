@@ -19,6 +19,7 @@ export default function AddToDo({createTodo}) {
       else {
         return <button id="submit-btn" onClick={()=> {
           createTodo(text);
+          setText('');
         }}>Submit</button>
       }
     }
